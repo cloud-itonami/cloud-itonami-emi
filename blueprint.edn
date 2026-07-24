@@ -1,0 +1,10 @@
+{:itonami.blueprint/id "cloud-itonami-emi"
+ :itonami.blueprint/name "Electronic Money Institution"
+ :itonami.blueprint/domain :finance/electronic-money-issuance
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:financial-inclusion :payment-competition :safeguarding-transparency]
+ :itonami.blueprint/governor :emi-governor
+ :itonami.blueprint/robotics false
+ :itonami.blueprint/required-technologies [:identity :forms :dmn :bpmn :audit-ledger]
+ :itonami.blueprint/optional-technologies [:corporate-intelligence]
+ :itonami.blueprint/status :public-oss}

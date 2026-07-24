@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator Console (sample) | cloud-itonami-emi</title>
+  <meta name="description" content="Sample operator-console rendering of the emi.sim demo run through the real EMI-LLM / EMIGovernor actor.">
+  <style>
+    :root { --bg:#f5f7fa; --card:#fff; --fg:#1b1f24; --muted:#57606a; --accent:#1e3a8a; --line:#d0d7de;
+            --hold:#b42318; --commit:#0f7b3f; --escalate:#9a6700; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0d1117; --card:#161b22; --fg:#e6edf3; --muted:#8d96a0; --accent:#58a6ff; --line:#30363d;
+              --hold:#ff8080; --commit:#3fb950; --escalate:#e3b341; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--fg);
+           padding: 32px 16px; }
+    main { max-width: 980px; margin: 0 auto; }
+    h1 { color: var(--accent); font-size: 1.6rem; margin-bottom: 4px; }
+    p.lede { color: var(--muted); margin-bottom: 24px; max-width: 70ch; line-height: 1.6; }
+    .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+    table { border-collapse: collapse; width: 100%; font-size: .92rem; min-width: 760px; }
+    thead th { text-align: left; padding: 10px 12px; background: var(--bg); border-bottom: 1px solid var(--line);
+               font-weight: 600; position: sticky; top: 0; }
+    tbody td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    tbody tr:last-child td { border-bottom: none; }
+    code { background: var(--bg); padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+    .disp { font-weight: 700; }
+    .disp-commit { color: var(--commit); }
+    .disp-hold { color: var(--hold); }
+    .disp-escalate { color: var(--escalate); }
+    .rules { color: var(--muted); font-size: .85em; }
+    footer { margin-top: 24px; color: var(--muted); font-size: .85rem; }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Operator console (sample rendering)</h1>
+  <p class="lede">
+    A literal transcript of <code>clojure -M:dev:run</code> (<code>emi.sim</code>) driving the
+    real <code>emi.operation</code> actor graph — EMI-LLM proposals censored by the real
+    EMIGovernor, phase-gated, and either auto-committed, escalated for human approval, or
+    held. No step below is scripted output; every row is a real op the actor graph actually
+    executed against a seeded MemStore.
+  </p>
+  <div class="tablewrap">
+  <table>
+    <thead>
+      <tr><th>#</th><th>Op</th><th>Subject</th><th>Disposition</th><th>Basis / rules</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><code>:wallet/intake</code></td><td>w-1</td><td class="disp disp-commit">commit (auto)</td><td class="rules">phase 3 auto-commits intake only</td></tr>
+      <tr><td>2</td><td><code>:jurisdiction/assess</code></td><td>w-1</td><td class="disp disp-commit">commit (approved)</td><td class="rules">spec-basis: 資金決済法 (Payment Services Act, FSA)</td></tr>
+      <tr><td>3</td><td><code>:kyc/screen</code></td><td>c-1</td><td class="disp disp-commit">commit (approved)</td><td class="rules">:clear — id-doc present, no sanctions hit</td></tr>
+      <tr><td>4</td><td><code>:emoney/issue</code></td><td>w-1 (100000 JPY)</td><td class="disp disp-commit">commit (approved)</td><td class="rules">record <code>JPN-EMI-00000000</code>, par value</td></tr>
+      <tr><td>5</td><td><code>:safeguarding/segregate</code></td><td>w-1 (DE89370400440532013000)</td><td class="disp disp-commit">commit (approved)</td><td class="rules">record <code>JPN-SFG-00000001</code>, IBAN checksum valid</td></tr>
+      <tr><td>6</td><td><code>:redemption/redeem</code></td><td>w-1 (100000 JPY)</td><td class="disp disp-commit">commit (approved)</td><td class="rules">record <code>JPN-RDM-00000002</code>, wallet closes at zero balance</td></tr>
+      <tr><td>7</td><td><code>:redemption/redeem</code></td><td>w-1 (again)</td><td class="disp disp-hold">HOLD</td><td class="rules"><code>:no-spec-basis</code> <code>:insufficient-balance</code> <code>:wallet-already-closed</code></td></tr>
+      <tr><td>8</td><td><code>:kyc/screen</code></td><td>c-2</td><td class="disp disp-hold">HOLD</td><td class="rules"><code>:sanctions-hit</code> — never reaches a human</td></tr>
+      <tr><td>9</td><td><code>:jurisdiction/assess</code></td><td>w-2 (ATL)</td><td class="disp disp-hold">HOLD</td><td class="rules"><code>:no-spec-basis</code> — no fabricated jurisdiction law</td></tr>
+      <tr><td>10</td><td><code>:safeguarding/segregate</code></td><td>w-1 (invalid IBAN)</td><td class="disp disp-hold">HOLD</td><td class="rules"><code>:iban-checksum-invalid</code> — ISO 7064 MOD 97-10 fails</td></tr>
+      <tr><td>11</td><td><code>:emoney/issue</code></td><td>w-2 (+0.5% interest attempt)</td><td class="disp disp-hold">HOLD</td><td class="rules"><code>:kyc-incomplete</code> <code>:evidence-incomplete</code> <code>:interest-or-credit-forbidden</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <footer>
+    Regenerate this transcript with <code>clojure -M:dev:run</code>. See
+    <a href="../operator-quickstart.md">operator quickstart</a> and the
+    <a href="https://github.com/cloud-itonami/cloud-itonami-emi/blob/main/src/emi/sim.cljc">sim.cljc</a>
+    driver for the exact scenario. No invented usage or revenue metrics — this is a governed
+    OSS blueprint, not a hosted SaaS demo.
+  </footer>
+</main>
+</body>
+</html>
