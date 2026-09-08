@@ -29,7 +29,7 @@
   moving safeguarded funds, or paying out a redemption itself (that is
   `emi.operation`'s `:emoney/issue`/`:safeguarding/segregate`/
   `:redemption/redeem`, always human-gated -- see README `Actuation`)."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- unsigned-certificate
   "Every certificate this actor produces is UNSIGNED -- signature is the
@@ -71,7 +71,7 @@
   digits per ISO 7064 MOD 97-10 -- the standard IBAN validation
   rearrangement."
   [iban]
-  (let [cleaned (str/replace (str/upper-case iban) #"\s" "")
+  (let [cleaned (str/replace (str/upper iban) #"\s" "")
         rearranged (str (subs cleaned 4) (subs cleaned 0 4))]
     (apply str (map char->digits rearranged))))
 
@@ -117,7 +117,7 @@
     (throw (ex-info "issuance: amount must be > 0" {})))
   (when (< sequence 0)
     (throw (ex-info "issuance: sequence must be >= 0" {})))
-  (let [record-number (str (str/upper-case jurisdiction) "-EMI-" (zero-pad sequence 8))
+  (let [record-number (str (str/upper jurisdiction) "-EMI-" (zero-pad sequence 8))
         record {"record_id" record-number
                 "kind" "issuance-draft"
                 "wallet_id" wallet-id
@@ -151,7 +151,7 @@
     (throw (ex-info "safeguarding: amount must be > 0" {})))
   (when (< sequence 0)
     (throw (ex-info "safeguarding: sequence must be >= 0" {})))
-  (let [record-number (str (str/upper-case jurisdiction) "-SFG-" (zero-pad sequence 8))
+  (let [record-number (str (str/upper jurisdiction) "-SFG-" (zero-pad sequence 8))
         record {"record_id" record-number
                 "kind" "safeguarding-draft"
                 "wallet_id" wallet-id
@@ -180,7 +180,7 @@
     (throw (ex-info "redemption: amount must be > 0" {})))
   (when (< sequence 0)
     (throw (ex-info "redemption: sequence must be >= 0" {})))
-  (let [record-number (str (str/upper-case jurisdiction) "-RDM-" (zero-pad sequence 8))
+  (let [record-number (str (str/upper jurisdiction) "-RDM-" (zero-pad sequence 8))
         record {"record_id" record-number
                 "kind" "redemption-draft"
                 "wallet_id" wallet-id
