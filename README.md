@@ -86,7 +86,7 @@ construction.** Two independent layers enforce this (`emi.governor`'s
 `:actuation` high-stakes gate and `emi.phase`'s phase table, which never
 puts `:emoney/issue`, `:safeguarding/segregate` or `:redemption/redeem`
 in any phase's `:auto` set) -- see `emi.phase`'s docstring and
-`test/emi/phase_test.clj`'s `actuation-never-auto-at-any-phase`. The
+`test/emi/phase_test.kotoba`'s `actuation-never-auto-at-any-phase`. The
 actor may draft, check, screen and recommend; a human operator is always
 the one who actually issues, moves safeguarded funds, and pays out a
 redemption.
@@ -156,14 +156,14 @@ full architecture and decision record.
 
 | File | Role |
 |---|---|
-| `src/emi/store.cljc` | **Store** protocol -- `MemStore` (R0; MemStore-only at this maturity stage, see ADR-2607247000) + append-only audit ledger + e-money-record history |
-| `src/emi/registry.cljc` | ISO 7064 MOD 97-10 safeguarding-account IBAN checksum (ported from `banking.registry`) + issuance/safeguarding/redemption draft records |
-| `src/emi/facts.cljc` | Per-jurisdiction e-money-issuance requirement catalog with an official spec-basis citation per entry, honest coverage reporting |
-| `src/emi/emiadvisor.cljc` | **EMI-LLM Advisor** -- `mock-advisor` ‖ `llm-advisor`; intake/assessment/KYC/issuance/safeguarding/redemption proposals |
-| `src/emi/governor.cljc` | **EMIGovernor** -- effect-matches-op · spec-basis · sanctions hold · KYC-complete · evidence-complete · no-interest/credit · insufficient-balance · IBAN checksum · post-closure-intake-block · intake-fabrication · already-closed · confidence floor · actuation gate |
-| `src/emi/phase.cljc` | **Phase 0→3** -- read-only → assisted intake → assisted assess/screen → supervised (actuation always human) |
-| `src/emi/operation.cljc` | **OperationActor** -- langgraph-clj StateGraph |
-| `src/emi/sim.cljc` | demo driver |
+| `src/emi/store.kotoba` | **Store** protocol -- `MemStore` (R0; MemStore-only at this maturity stage, see ADR-2607247000) + append-only audit ledger + e-money-record history |
+| `src/emi/registry.kotoba` | ISO 7064 MOD 97-10 safeguarding-account IBAN checksum (ported from `banking.registry`) + issuance/safeguarding/redemption draft records |
+| `src/emi/facts.kotoba` | Per-jurisdiction e-money-issuance requirement catalog with an official spec-basis citation per entry, honest coverage reporting |
+| `src/emi/emiadvisor.kotoba` | **EMI-LLM Advisor** -- `mock-advisor` ‖ `llm-advisor`; intake/assessment/KYC/issuance/safeguarding/redemption proposals |
+| `src/emi/governor.kotoba` | **EMIGovernor** -- effect-matches-op · spec-basis · sanctions hold · KYC-complete · evidence-complete · no-interest/credit · insufficient-balance · IBAN checksum · post-closure-intake-block · intake-fabrication · already-closed · confidence floor · actuation gate |
+| `src/emi/phase.kotoba` | **Phase 0→3** -- read-only → assisted intake → assisted assess/screen → supervised (actuation always human) |
+| `src/emi/operation.kotoba` | **OperationActor** -- langgraph-clj StateGraph |
+| `src/emi/sim.kotoba` | demo driver |
 | `test/emi/*_test.clj` | governor contract · phase invariants · IBAN checksum conformance · facts coverage · store contract · real-LLM advisor (mock-model) |
 
 ## Jurisdiction coverage (honest)

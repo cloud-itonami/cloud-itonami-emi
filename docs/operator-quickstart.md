@@ -37,7 +37,7 @@ Publish: enable GitHub Pages on `main` `/docs`, or any static host.
 ## 4. Where the Governor sits
 
 - Blueprint governor key: `emi-governor`
-- Source path: `src/emi/governor.cljc`
+- Source path: `src/emi/governor.kotoba`
 - Pattern: advise → govern → phase-gate → commit | escalate | hold (itonami actor / ADR-2607247000)
 
 ## 5. Claim / go-live

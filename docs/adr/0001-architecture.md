@@ -124,7 +124,7 @@ the ten HARD checks off a dedicated `:status` fact, never inferred.
   `cloud-itonami-isic-6910` when this actor is ready to grow past R0.
 - **Advisor**: `mock-advisor` (deterministic) is the default;
   `llm-advisor` (real `langchain.model/ChatModel` inference) exists and
-  is tested (`test/emi/llm_advisor_test.clj`) but no production LLM
+  is tested (`test/emi/llm_advisor_test.kotoba`) but no production LLM
   provider is wired up.
 - **No external integrations**: no real KYC/sanctions-screening
   provider, no real safeguarding-bank/custodian integration, no real
