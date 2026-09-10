@@ -32,7 +32,7 @@ repository and be injected through a store adapter.
   substitute for one
 - replace demo data with a customer-owned store
 - configure Datomic Local, kotoba-server or an equivalent durable SSoT
-  (see `src/emi/store.cljc`'s docstring for the `DatomicStore` seam this
+  (see `src/emi/store.kotoba`'s docstring for the `DatomicStore` seam this
   actor is designed to grow into)
 - configure the LLM adapter through environment variables or a secret
   manager
