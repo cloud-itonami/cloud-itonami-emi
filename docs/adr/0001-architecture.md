@@ -161,7 +161,7 @@ full governor contract (every HARD/SOFT check exercised both via direct
 actor graph, including the human-approval interrupt/resume path), and
 the real-LLM advisor (parsed defensively, fully re-censored by the
 governor, including a proposal that tries to smuggle a non-zero
-`:interest-rate` past the advisor layer). `clojure -M:lint` (clj-kondo)
+`:interest-rate` past the advisor layer). `kbb -M:lint` (clj-kondo)
 passes with zero warnings.
 
 ## Repository

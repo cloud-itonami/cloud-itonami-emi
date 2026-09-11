@@ -1,5 +1,5 @@
 (ns emi.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean wallet through intake
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean wallet through intake
   -> jurisdiction assessment -> KYC/CDD screening -> e-money issuance
   (always escalates) -> human approval -> commit -> a safeguarding-account
   confirmation -> a redemption (both also always escalate), then shows

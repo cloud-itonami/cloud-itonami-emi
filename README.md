@@ -129,9 +129,9 @@ proposal still always routes to a human.
 ## Run
 
 ```bash
-clojure -M:dev:run     # walk one clean wallet through intake -> assessment -> KYC -> issuance -> safeguarding -> redemption, plus five HARD-hold cases
-clojure -M:dev:test    # governor contract · phase invariants · IBAN checksum conformance · facts coverage
-clojure -M:lint        # clj-kondo (errors fail; CI mirrors this)
+kbb -M:dev:run     # walk one clean wallet through intake -> assessment -> KYC -> issuance -> safeguarding -> redemption, plus five HARD-hold cases
+kbb -M:dev:test    # governor contract · phase invariants · IBAN checksum conformance · facts coverage
+kbb -M:lint        # clj-kondo (errors fail; CI mirrors this)
 ```
 
 ## Open business
