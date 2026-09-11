@@ -25,7 +25,7 @@ jobs:
       - uses: DeLaGuardo/setup-clojure@13.0
         with: { cli: latest }
       - name: clj-kondo (errors fail the build)
-        run: clojure -M:lint
+        run: kbb -M:lint
 
   test:
     runs-on: ubuntu-latest
@@ -47,4 +47,4 @@ jobs:
         with: { cli: latest }
       - name: test (governor contract · phase invariants · IBAN checksum conformance · facts coverage · store contract · llm advisor)
         working-directory: orgs/cloud-itonami/cloud-itonami-emi
-        run: clojure -M:dev:test
+        run: kbb -M:dev:test

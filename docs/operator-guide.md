@@ -8,8 +8,8 @@ This guide is for people who want to start an open business from
 ```bash
 git clone https://github.com/cloud-itonami/cloud-itonami-emi
 cd cloud-itonami-emi
-clojure -M:dev:test
-clojure -M:dev:run
+kbb -M:dev:test
+kbb -M:dev:run
 ```
 
 The default demo uses synthetic wallets and customers. Production
@@ -43,8 +43,8 @@ repository and be injected through a store adapter.
 - extend `emi.facts/catalog` for every jurisdiction you serve, each entry
   citing the jurisdiction's own official e-money-issuance regulator as
   `:provenance`
-- run `clojure -M:dev:test`
-- run `clojure -M:lint`
+- run `kbb -M:dev:test`
+- run `kbb -M:lint`
 - verify audit-ledger export
 - document backup and restore
 - document incident response
