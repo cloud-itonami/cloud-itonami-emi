@@ -5,7 +5,7 @@
  ;; :local/root paths only resolve inside the monorepo checkout — a
  ;; standalone fork should override them with git coordinates. Uses the
  ;; current kotoba-lang org/name (not the deprecated com-junkawasaki/*-clj
- ;; redirects -- see CLAUDE.md "Repo naming — no -clj suffix", 2026-07-10).
+ ;; redirects -- see AGENTS.md "Repo naming — no -clj suffix", 2026-07-10).
  :deps {
         ;; kotoba.lang.text, not clojure.string. Pinned as an explicit floor:
         ;; tools.deps takes the NEWEST sha it is shown, so without a floor here

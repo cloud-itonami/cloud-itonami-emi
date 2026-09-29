@@ -7,7 +7,7 @@ name: ci
 # relative paths -- no token needed. Same pattern as cloud-itonami-isic-6910
 # / cloud-itonami-isic-6419's ci.yml (which still reference the deprecated
 # com-junkawasaki/*-clj redirect names; this repo uses the current
-# kotoba-lang org/name per CLAUDE.md "Repo naming — no -clj suffix").
+# kotoba-lang org/name per AGENTS.md "Repo naming — no -clj suffix").
 
 on:
   push:
